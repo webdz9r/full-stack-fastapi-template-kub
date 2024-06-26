@@ -1,0 +1,36 @@
+apiVersion: v2
+name: full-stack-fastapi
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.16.0"
+
+
+dependencies:
+  - name: postgresql # docs: https://github.com/bitnami/charts/tree/main/bitnami/postgresql - default values: https://github.com/bitnami/charts/blob/main/bitnami/postgresql/values.yaml
+    version: 15.5.10 # latest version as of 6/26/24
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgres.enabled
+
+  - name: adminer # docs: https://github.com/cetic/helm-adminer?tab=readme-ov-file
+    version: 0.2.1 # latest version as of 6/26/24
+    repository: https://cetic.github.io/helm-charts
+    condition: adminer.enabled

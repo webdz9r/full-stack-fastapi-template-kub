@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "full-stack-fastapi.fullname" . }}-frontend
+  labels:
+    {{- include "full-stack-fastapi.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.frontend.service.type }}
+  ports:
+    - port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.target }}
+      protocol: TCP
+      name: {{ .Values.frontend.service.name }}
+  selector:
+    {{- include "full-stack-fastapi.selectorLabels" . | nindent 4 }}
